@@ -152,7 +152,7 @@ a,abbr,acronym,address,applet,b,big,blockquote,body,center,cite,code,dd,del,dfn,
 				
 				
 				
-				<div class="et_pb_text_inner"><p>Welcome to eenovators ltd</p></div>
+				<div class="et_pb_text_inner"><p>Welcome to eenovators</p></div>
 			</div><div class="et_pb_module et_pb_text et_pb_text_1  et_pb_text_align_left et_pb_bg_layout_dark">
 				
 				
@@ -641,7 +641,7 @@ a,abbr,acronym,address,applet,b,big,blockquote,body,center,cite,code,dd,del,dfn,
 				
 				
 				<div class="et_pb_module_inner">
-					<div class="dtq-carousel dtq-logo-carousel dtq-carousel-frontend zoom_in" data-settings="{" responsive":[{"breakpoint":980},{"breakpoint":767}],"cssease":"ease-in-out","swipe":true,"variablewidth":false,"dots":false,"arrows":false,"infinite":true,"autoplay":true,"autoplayspeed":2000,"speed":1800,"slidestoshow":8,"slidestoscroll":1,"centerpadding":"70px","centermode":false,"vertical":false,"prevarrow":"<button="" type="\"button\"" data-icon="\"\"" slick-prev\"="">Prev<\/button>","nextArrow":"<button type="\"button\"" data-icon="\"\"" class="\"slick-arrow" slick-next\"="">Prev<\/button>"}">
+					<div class="dtq-carousel dtq-logo-carousel dtq-carousel-frontend zoom_in" data-settings='{"cssEase":"ease-in-out","swipe":true,"variableWidth":false,"dots":false,"arrows":false,"infinite":true,"autoplay":true,"autoplaySpeed":2000,"speed":1800,"slidesToShow":6,"slidesToScroll":1,"centerPadding":"70px","centerMode":false,"vertical":false,"rtl":true,"responsive":[{"breakpoint":980,"settings":{"slidesToShow":4}},{"breakpoint":767,"settings":{"slidesToShow":2}}]}'>
                 <div class="ba_logo_carousel_child ba_logo_carousel_child_6">
 				
 				
@@ -1259,7 +1259,7 @@ a,abbr,acronym,address,applet,b,big,blockquote,body,center,cite,code,dd,del,dfn,
 			</div>
 				</div>
 			</div>
-            </button></div>
+            
 				</div>
 			</div>
 			</div>
@@ -1546,59 +1546,54 @@ var et_pb_box_shadow_elements = [];
     document.addEventListener('DOMContentLoaded', function(){
       // wait for jQuery and slick to be available
       function initWhenReady(){
-        if(typeof jQuery === 'undefined') return setTimeout(initWhenReady, 100);
+        if(typeof jQuery === 'undefined') return setTimeout(initWhenReady, 50);
         var $ = jQuery;
-        if(typeof $.fn.slick === 'undefined') return setTimeout(initWhenReady, 100);
+        if(typeof $.fn.slick === 'undefined') return setTimeout(initWhenReady, 50);
 
-        $('.dtq-carousel.dtq-logo-carousel').each(function(){
-          var $c = $(this);
-          
-          // Force destroy any existing slick instance
-          try{
-            if($c.hasClass('slick-initialized')){
-              $c.slick('unslick');
-            }
-          }catch(e){}
-          
-          // Remove the malformed data-settings to avoid conflicts
-          $c.removeAttr('data-settings');
+				$('.dtq-carousel.dtq-logo-carousel').each(function(){
+					var $c = $(this);
+					try{
+						if($c.hasClass('slick-initialized')){
+							$c.slick('unslick');
+						}
+					}catch(e){}
 
-          // Initialize with clean settings for right-to-left autoplay
-          $c.slick({
-            rtl: true,              // Right to left sliding
-            autoplay: true,         // Enable autoplay
-            autoplaySpeed: 2500,    // Moderate speed - 2.5 seconds between slides
-            speed: 1200,            // Animation duration
-            slidesToShow: 6,        // Show 6 logos at once on desktop
-            slidesToScroll: 1,      // Scroll one logo at a time
-            infinite: true,         // Loop continuously
-            arrows: false,          // Hide prev/next buttons
-            dots: false,            // Hide dots
-            pauseOnHover: true,     // Pause when user hovers
-            swipe: true,            // Allow touch swipe
-            responsive:[
-              { 
-                breakpoint: 980, 
-                settings: { 
-                  slidesToShow: 4,    // Show 4 logos on tablets
-                  autoplaySpeed: 2000 
-                } 
-              },
-              { 
-                breakpoint: 767, 
-                settings: { 
-                  slidesToShow: 2,    // Show 2 logos on mobile
-                  autoplaySpeed: 1800 
-                } 
-              }
-            ]
-          });
-        });
+					// force RTL layout on the element (helps Slick's rtl handling)
+					$c.attr('dir', 'rtl').css('direction','rtl');
+
+					// Merge/override settings so any malformed data-settings won't prevent RTL/autoplay
+					var override = {
+						rtl: true,
+						autoplay: true,
+						autoplaySpeed: 2000,
+						speed: 1800,
+						slidesToShow: 6,
+						slidesToScroll: 1,
+						infinite: true,
+						arrows: false,
+						dots: false,
+						pauseOnHover: true,
+						responsive:[
+							{ breakpoint: 980, settings: { slidesToShow: 4 } },
+							{ breakpoint: 767, settings: { slidesToShow: 2 } }
+						]
+					};
+
+					// If element had data-settings, merge safely
+					try{
+						var existing = $c.data('settings') || {};
+						var settings = Object.assign({}, existing, override);
+						// store back for reference
+						$c.data('settings', settings);
+					}catch(e){
+						var settings = override;
+					}
+
+					// Initialize slick with the computed settings
+					$c.slick(settings);
+				});
       }
-      
-      // Try multiple times to ensure it works
-      setTimeout(initWhenReady, 100);
-      setTimeout(initWhenReady, 500);
+      // Delay to ensure other scripts have initialized first
       setTimeout(initWhenReady, 1000);
     });
     </script>			<style>
@@ -1695,6 +1690,31 @@ var et_pb_box_shadow_elements = [];
 				var el = document.getElementById('auto-marquee');
 				if(el) setupMarquee(el);
 			});
+		})();
+		</script>
+
+		<script>
+		// Ensure logo carousels initialize with rtl + autoplay as a safety net
+		(function(){
+		  function ensureCarousels(){
+		    if(typeof jQuery === 'undefined' || typeof jQuery.fn.slick === 'undefined') return false;
+		    jQuery('.dtq-carousel.dtq-logo-carousel').each(function(){
+		      var $t = jQuery(this);
+		      // if already initialized, refresh settings
+		      if($t.hasClass('slick-initialized')){
+		        $t.slick('unslick');
+		      }
+		      var base = $t.data('settings') || {};
+		      var settings = jQuery.extend({}, base, { rtl: true, autoplay: true, autoplaySpeed: 2000, speed: 1800, slidesToShow: base.slidesToShow || 6 });
+		      $t.attr('dir','rtl');
+		      $t.slick(settings);
+		    });
+		    return true;
+		  }
+		  // Try immediately and again after short delay in case frontend scripts run later
+		  document.addEventListener('DOMContentLoaded', function(){
+		    if(!ensureCarousels()) setTimeout(ensureCarousels, 500);
+		  });
 		})();
 		</script>
 
