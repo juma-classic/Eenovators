@@ -158,7 +158,7 @@ a,abbr,acronym,address,applet,b,big,blockquote,body,center,cite,code,dd,del,dfn,
 				
 				
 				
-				<div class="et_pb_text_inner"><h1>PURE ESCO SOLUTIONS</h1></div>
+				<div class="et_pb_text_inner"><div class="auto-marquee" id="auto-marquee" aria-label="sliding headline"><div class="auto-marquee__inner">PURE ESCO SOLUTIONS</div></div></div>
 			</div><div class="et_pb_module et_pb_text et_pb_text_2  et_pb_text_align_left et_pb_bg_layout_dark">
 				
 				
@@ -1540,6 +1540,162 @@ var et_pb_box_shadow_elements = [];
 <script type="text/javascript" src="js/frontend-bundle.min.js" id="timeline-module-for-divi-frontend-bundle-js"></script>
 <script type="text/javascript" src="js/common.js" id="et-core-common-js"></script>
 	
-	
+    
+    <script>
+    // Ensure logo carousels use Slick autoplay and slide right-to-left
+    document.addEventListener('DOMContentLoaded', function(){
+      // wait for jQuery and slick to be available
+      function initWhenReady(){
+        if(typeof jQuery === 'undefined') return setTimeout(initWhenReady, 100);
+        var $ = jQuery;
+        if(typeof $.fn.slick === 'undefined') return setTimeout(initWhenReady, 100);
+
+        $('.dtq-carousel.dtq-logo-carousel').each(function(){
+          var $c = $(this);
+          
+          // Force destroy any existing slick instance
+          try{
+            if($c.hasClass('slick-initialized')){
+              $c.slick('unslick');
+            }
+          }catch(e){}
+          
+          // Remove the malformed data-settings to avoid conflicts
+          $c.removeAttr('data-settings');
+
+          // Initialize with clean settings for right-to-left autoplay
+          $c.slick({
+            rtl: true,              // Right to left sliding
+            autoplay: true,         // Enable autoplay
+            autoplaySpeed: 2500,    // Moderate speed - 2.5 seconds between slides
+            speed: 1200,            // Animation duration
+            slidesToShow: 6,        // Show 6 logos at once on desktop
+            slidesToScroll: 1,      // Scroll one logo at a time
+            infinite: true,         // Loop continuously
+            arrows: false,          // Hide prev/next buttons
+            dots: false,            // Hide dots
+            pauseOnHover: true,     // Pause when user hovers
+            swipe: true,            // Allow touch swipe
+            responsive:[
+              { 
+                breakpoint: 980, 
+                settings: { 
+                  slidesToShow: 4,    // Show 4 logos on tablets
+                  autoplaySpeed: 2000 
+                } 
+              },
+              { 
+                breakpoint: 767, 
+                settings: { 
+                  slidesToShow: 2,    // Show 2 logos on mobile
+                  autoplaySpeed: 1800 
+                } 
+              }
+            ]
+          });
+        });
+      }
+      
+      // Try multiple times to ensure it works
+      setTimeout(initWhenReady, 100);
+      setTimeout(initWhenReady, 500);
+      setTimeout(initWhenReady, 1000);
+    });
+    </script>			<style>
+		/* Auto marquee: smooth continuous right-to-left sliding */
+		.auto-marquee{
+			overflow: hidden;
+			position: relative;
+			width: 100%;
+			white-space: nowrap;
+			box-sizing: border-box;
+		}
+		.auto-marquee__inner{
+			display: inline-block;
+			padding-left: 100%; /* start off-screen to the right */
+			will-change: transform;
+			font-size: 1.6em; /* inherit or tweak as needed */
+			font-weight: 700;
+			letter-spacing: .04em;
+		}
+		/* Reduced motion preference */
+		@media (prefers-reduced-motion: reduce){
+			.auto-marquee__inner{animation: none !important}
+		}
+		</style>
+
+		<script>
+		// Continuous marquee that measures content width and animates transform
+		(function(){
+			function setupMarquee(el){
+				var inner = el.querySelector('.auto-marquee__inner');
+				if(!inner) return;
+
+				// duplicate content so the scroll is seamless when content is short
+				var text = inner.textContent.trim();
+				if(!text) return;
+
+				// Create a second copy to ensure continuous loop for any width
+				var clone = inner.cloneNode(true);
+				clone.style.paddingLeft = '0';
+				el.appendChild(clone);
+
+				function computeAndStart(){
+					// reset any inline animation
+					inner.style.animation = 'none';
+					clone.style.animation = 'none';
+
+					// measure widths
+					var w1 = inner.offsetWidth;
+					var w2 = clone.offsetWidth;
+					var total = w1 + w2;
+
+					// duration proportional to length (pixels/sec)
+					var pxPerSec = 90; // adjust speed: higher = faster
+					var duration = Math.max(6, total / pxPerSec);
+
+					var keyframesName = 'marqueeScroll_' + Math.floor(Math.random()*1e6);
+					var styleEl = document.createElement('style');
+					styleEl.className = 'marquee-style';
+					styleEl.innerHTML = '\n@keyframes '+keyframesName+'{\n  0%{transform:translateX(0);}\n  100%{transform:translateX(-'+(total/2)+'px);}\n}\n';
+					document.head.appendChild(styleEl);
+
+					// apply animation to the wrapper that holds both items
+					var wrapper = document.createElement('div');
+					wrapper.style.display = 'inline-block';
+					wrapper.style.whiteSpace = 'nowrap';
+					wrapper.style.willChange = 'transform';
+					// move children into wrapper
+					while(el.firstChild) wrapper.appendChild(el.firstChild);
+					el.appendChild(wrapper);
+
+					wrapper.style.animation = keyframesName + ' ' + duration + 's linear infinite';
+
+					// pause on hover
+					el.addEventListener('mouseenter', function(){ wrapper.style.animationPlayState = 'paused'; });
+					el.addEventListener('mouseleave', function(){ wrapper.style.animationPlayState = 'running'; });
+				}
+
+				// restart on resize
+				var resizeObserver = new ResizeObserver(function(){
+					// remove previous generated styles to avoid duplicates
+					var prev = document.querySelectorAll('.marquee-style');
+					prev.forEach(function(n){ n.parentNode && n.parentNode.removeChild(n); });
+					// also unwrap if wrapper exists (simple page reload semantics)
+					// We'll just recompute by reloading the page of children
+					computeAndStart();
+				});
+				resizeObserver.observe(el);
+
+				// initial start (slight delay to allow fonts/images)
+				setTimeout(computeAndStart, 50);
+			}
+
+			document.addEventListener('DOMContentLoaded', function(){
+				var el = document.getElementById('auto-marquee');
+				if(el) setupMarquee(el);
+			});
+		})();
+		</script>
 
 </body></html>
