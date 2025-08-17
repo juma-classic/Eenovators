@@ -202,12 +202,12 @@ a,abbr,acronym,address,applet,b,big,blockquote,body,center,cite,code,dd,del,dfn,
 				
 				
 				<div class="et_pb_module et_pb_circle_counter et_pb_circle_counter_0 container-width-change-notify  et_pb_text_align_center et_pb_bg_layout_light et_pb_with_title">
-				<div class="et_pb_circle_counter_inner" data-number-value="90" data-bar-bg-color="#28a745">
+				<div class="et_pb_circle_counter_inner" data-number-value="80" data-bar-bg-color="#28a745">
 				
 				
 				
 				
-					<div class="percent"><p><span class="percent-value"></span><span class="percent-sign"></span></p></div>
+					<div class="percent"><p><span class="percent-value"></span><span class="percent-sign">%</span></p></div>
 					<h3 class="et_pb_module_header">Energy Audit</h3>
 				</div>
 			</div>
@@ -217,12 +217,12 @@ a,abbr,acronym,address,applet,b,big,blockquote,body,center,cite,code,dd,del,dfn,
 				
 				
 				<div class="et_pb_module et_pb_circle_counter et_pb_circle_counter_1 container-width-change-notify  et_pb_text_align_center et_pb_bg_layout_light et_pb_with_title">
-				<div class="et_pb_circle_counter_inner" data-number-value="50" data-bar-bg-color="#2ea3f2">
+				<div class="et_pb_circle_counter_inner" data-number-value="65" data-bar-bg-color="#FFC107">
 				
 				
 				
 				
-					<div class="percent"><p><span class="percent-value"></span><span class="percent-sign"></span></p></div>
+					<div class="percent"><p><span class="percent-value"></span><span class="percent-sign">%</span></p></div>
 					<h3 class="et_pb_module_header">Solar Energy</h3>
 				</div>
 			</div>
@@ -232,12 +232,12 @@ a,abbr,acronym,address,applet,b,big,blockquote,body,center,cite,code,dd,del,dfn,
 				
 				
 				<div class="et_pb_module et_pb_circle_counter et_pb_circle_counter_2 container-width-change-notify  et_pb_text_align_center et_pb_bg_layout_light et_pb_with_title">
-				<div class="et_pb_circle_counter_inner" data-number-value="50" data-bar-bg-color="#0e4de3">
+				<div class="et_pb_circle_counter_inner" data-number-value="78" data-bar-bg-color="#6f42c1">
 				
 				
 				
 				
-					<div class="percent"><p><span class="percent-value"></span><span class="percent-sign"></span></p></div>
+					<div class="percent"><p><span class="percent-value"></span><span class="percent-sign">%</span></p></div>
 					<h3 class="et_pb_module_header">Energy Training</h3>
 				</div>
 			</div>
@@ -247,12 +247,12 @@ a,abbr,acronym,address,applet,b,big,blockquote,body,center,cite,code,dd,del,dfn,
 				
 				
 				<div class="et_pb_module et_pb_circle_counter et_pb_circle_counter_3 container-width-change-notify  et_pb_text_align_center et_pb_bg_layout_light et_pb_with_title">
-				<div class="et_pb_circle_counter_inner" data-number-value="50" data-bar-bg-color="#2b3990">
+				<div class="et_pb_circle_counter_inner" data-number-value="44" data-bar-bg-color="#FFD700">
 				
 				
 				
 				
-					<div class="percent"><p><span class="percent-value"></span><span class="percent-sign"></span></p></div>
+					<div class="percent"><p><span class="percent-value"></span><span class="percent-sign">%</span></p></div>
 					<h3 class="et_pb_module_header">Energy Product Sales</h3>
 				</div>
 			</div>
@@ -262,12 +262,12 @@ a,abbr,acronym,address,applet,b,big,blockquote,body,center,cite,code,dd,del,dfn,
 				
 				
 				<div class="et_pb_module et_pb_circle_counter et_pb_circle_counter_4 container-width-change-notify  et_pb_text_align_center et_pb_bg_layout_light et_pb_with_title">
-				<div class="et_pb_circle_counter_inner" data-number-value="50" data-bar-bg-color="#001b56">
+				<div class="et_pb_circle_counter_inner" data-number-value="72" data-bar-bg-color="#2ecc71">
 				
 				
 				
 				
-					<div class="percent"><p><span class="percent-value"></span><span class="percent-sign"></span></p></div>
+					<div class="percent"><p><span class="percent-value"></span><span class="percent-sign">%</span></p></div>
 					<h3 class="et_pb_module_header">Energy Consultancy</h3>
 				</div>
 			</div>
@@ -1564,18 +1564,24 @@ var et_pb_box_shadow_elements = [];
 					// Merge/override settings so any malformed data-settings won't prevent RTL/autoplay
 					var override = {
 						rtl: true,
+						// continuous linear autoplay
 						autoplay: true,
-						autoplaySpeed: 2000,
-						speed: 1800,
+						autoplaySpeed: 0, // no delay between slides
+						speed: 9000, // long duration to create seamless motion
+						cssEase: 'linear',
+						infinite: true,
+						// center slide to allow scaling focus
+						centerMode: true,
+						centerPadding: '60px',
 						slidesToShow: 6,
 						slidesToScroll: 1,
-						infinite: true,
 						arrows: false,
 						dots: false,
-						pauseOnHover: true,
+						pauseOnHover: false,
+						pauseOnFocus: false,
 						responsive:[
-							{ breakpoint: 980, settings: { slidesToShow: 4 } },
-							{ breakpoint: 767, settings: { slidesToShow: 2 } }
+							{ breakpoint: 980, settings: { slidesToShow: 4, centerPadding: '40px' } },
+							{ breakpoint: 767, settings: { slidesToShow: 2, centerPadding: '30px' } }
 						]
 					};
 
@@ -1616,6 +1622,18 @@ var et_pb_box_shadow_elements = [];
 		/* Reduced motion preference */
 		@media (prefers-reduced-motion: reduce){
 			.auto-marquee__inner{animation: none !important}
+		}
+
+		/* Centered logo scale-up effect */
+		.dtq-logo-carousel .dtq-carousel-item img{
+			transition: transform .3s ease, filter .3s ease;
+			transform: scale(1);
+			will-change: transform;
+		}
+		/* Slick marks the centered slide with .slick-center when centerMode is enabled */
+		.dtq-logo-carousel .slick-center .dtq-carousel-item img{
+			transform: scale(1.12);
+			filter: saturate(1.05);
 		}
 		</style>
 
