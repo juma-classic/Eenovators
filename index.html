@@ -158,13 +158,18 @@ a,abbr,acronym,address,applet,b,big,blockquote,body,center,cite,code,dd,del,dfn,
 				
 				
 				
-				<div class="et_pb_text_inner"><div class="auto-marquee" id="auto-marquee" aria-label="sliding headline"><div class="auto-marquee__inner">PURE ESCO SOLUTIONS</div></div></div>
+				<div class="et_pb_text_inner">
+					<h1 style="font-size: 5em; font-weight: 700; letter-spacing: .04em; margin: 0; text-align: left; line-height: 1.1;">
+						PURE ESCO<br>
+						SOLUTIONS
+					</h1>
+				</div>
 			</div><div class="et_pb_module et_pb_text et_pb_text_2  et_pb_text_align_left et_pb_bg_layout_dark">
 				
 				
 				
 				
-				<div class="et_pb_text_inner"><p>‌Eenvators specializes in developing and implementing solutions for the <strong><span style="color: #ff9900;">Productive Use of Renewable Energy and Energy Efficiency (PURE³) </span></strong>. We focus on reducing your energy bills while you focus on your core business. Whether its powering your home, agricultural processing, manufacturing, or small businesses, we ensure that renewable energy translates to tangible benefits for your operations.</p></div>
+				<div class="et_pb_text_inner"><p>‌Eenvators specializes in developing and implementing solutions for the <strong><span style="color: #ff9900;">Productive Use of Renewable Energy and Energy Efficiency (PURE³) </span></strong>. We focus on reducing your energy bills while you focus on your core business. Whether it's powering your home, agricultural processing, manufacturing, or small businesses, we ensure that renewable energy translates to tangible benefits for your operations.</p></div>
 			</div><div class="et_pb_button_module_wrapper et_pb_button_0_wrapper  et_pb_module ">
 				<a class="et_pb_button et_pb_button_0 et_pb_bg_layout_light" href="">Our Solutions</a>
 			</div>
@@ -491,13 +496,13 @@ a,abbr,acronym,address,applet,b,big,blockquote,body,center,cite,code,dd,del,dfn,
 				
 				
 				
-				<div class="et_pb_heading_container"><h1 class="et_pb_module_heading">Your Title Goes Here</h1></div>
+				<div class="et_pb_heading_container"><h1 class="et_pb_module_heading">Westlands: Hybrid Solar PV System (2023)</h1></div>
 			</div><div class="et_pb_module et_pb_text et_pb_text_9  et_pb_text_align_left et_pb_bg_layout_light">
 				
 				
 				
 				
-				<div class="et_pb_text_inner"><p>Your content goes here. Edit or remove this text inline or in the module Content settings. You can also style every aspect of this content in the module Design settings and even apply custom CSS to this text in the module Advanced settings.</p></div>
+				<div class="et_pb_text_inner"><p>In 2023, we successfully commissioned a 3kW Hybrid Solar PV System in Westlands. The installation features 6 × 475W monocrystalline panels (2.85kWp total), a 3kW hybrid inverter, and 4 × 200Ah lead-acid batteries providing approximately 9.6kWh of storage. This system delivers reliable renewable energy while achieving an estimated 1,200 kg of CO₂ savings annually, contributing to a cleaner and more sustainable future.</p></div>
 			</div><div class="et_pb_button_module_wrapper et_pb_button_1_wrapper  et_pb_module ">
 				<a class="et_pb_button et_pb_button_1 et_pb_bg_layout_light" href="">Find out more</a>
 			</div>
@@ -511,13 +516,13 @@ a,abbr,acronym,address,applet,b,big,blockquote,body,center,cite,code,dd,del,dfn,
 				
 				
 				
-				<div class="et_pb_heading_container"><h1 class="et_pb_module_heading">Your Title Goes Here</h1></div>
+				<div class="et_pb_heading_container"><h1 class="et_pb_module_heading">Smart meters & Monitors</h1></div>
 			</div><div class="et_pb_module et_pb_text et_pb_text_10  et_pb_text_align_left et_pb_bg_layout_light">
 				
 				
 				
 				
-				<div class="et_pb_text_inner"><p>Your content goes here. Edit or remove this text inline or in the module Content settings. You can also style every aspect of this content in the module Design settings and even apply custom CSS to this text in the module Advanced settings.</p></div>
+				<div class="et_pb_text_inner"><p>We provide smart energy monitoring solutions designed to give you unparalleled control over your energy consumption. It includes a user-friendly online platform that provides real-time data on energy usage across your facility’s, identifying peak demand periods and areas of inefficiency.</p></div>
 			</div><div class="et_pb_button_module_wrapper et_pb_button_2_wrapper  et_pb_module ">
 				<a class="et_pb_button et_pb_button_2 et_pb_bg_layout_light" href="">Find out more</a>
 			</div>
@@ -1603,28 +1608,7 @@ var et_pb_box_shadow_elements = [];
       setTimeout(initWhenReady, 1000);
     });
     </script>			<style>
-		/* Auto marquee: smooth continuous right-to-left sliding */
-		.auto-marquee{
-			overflow: hidden;
-			position: relative;
-			width: 100%;
-			white-space: nowrap;
-			box-sizing: border-box;
-		}
-		.auto-marquee__inner{
-			display: inline-block;
-			padding-left: 100%; /* start off-screen to the right */
-			will-change: transform;
-			font-size: 1.6em; /* inherit or tweak as needed */
-			font-weight: 700;
-			letter-spacing: .04em;
-		}
-		/* Reduced motion preference */
-		@media (prefers-reduced-motion: reduce){
-			.auto-marquee__inner{animation: none !important}
-		}
-
-		/* Centered logo scale-up effect */
+		</style>
 		.dtq-logo-carousel .dtq-carousel-item img{
 			transition: transform .3s ease, filter .3s ease;
 			transform: scale(1);
@@ -1636,80 +1620,6 @@ var et_pb_box_shadow_elements = [];
 			filter: saturate(1.05);
 		}
 		</style>
-
-		<script>
-		// Continuous marquee that measures content width and animates transform
-		(function(){
-			function setupMarquee(el){
-				var inner = el.querySelector('.auto-marquee__inner');
-				if(!inner) return;
-
-				// duplicate content so the scroll is seamless when content is short
-				var text = inner.textContent.trim();
-				if(!text) return;
-
-				// Create a second copy to ensure continuous loop for any width
-				var clone = inner.cloneNode(true);
-				clone.style.paddingLeft = '0';
-				el.appendChild(clone);
-
-				function computeAndStart(){
-					// reset any inline animation
-					inner.style.animation = 'none';
-					clone.style.animation = 'none';
-
-					// measure widths
-					var w1 = inner.offsetWidth;
-					var w2 = clone.offsetWidth;
-					var total = w1 + w2;
-
-					// duration proportional to length (pixels/sec)
-					var pxPerSec = 90; // adjust speed: higher = faster
-					var duration = Math.max(6, total / pxPerSec);
-
-					var keyframesName = 'marqueeScroll_' + Math.floor(Math.random()*1e6);
-					var styleEl = document.createElement('style');
-					styleEl.className = 'marquee-style';
-					styleEl.innerHTML = '\n@keyframes '+keyframesName+'{\n  0%{transform:translateX(0);}\n  100%{transform:translateX(-'+(total/2)+'px);}\n}\n';
-					document.head.appendChild(styleEl);
-
-					// apply animation to the wrapper that holds both items
-					var wrapper = document.createElement('div');
-					wrapper.style.display = 'inline-block';
-					wrapper.style.whiteSpace = 'nowrap';
-					wrapper.style.willChange = 'transform';
-					// move children into wrapper
-					while(el.firstChild) wrapper.appendChild(el.firstChild);
-					el.appendChild(wrapper);
-
-					wrapper.style.animation = keyframesName + ' ' + duration + 's linear infinite';
-
-					// pause on hover
-					el.addEventListener('mouseenter', function(){ wrapper.style.animationPlayState = 'paused'; });
-					el.addEventListener('mouseleave', function(){ wrapper.style.animationPlayState = 'running'; });
-				}
-
-				// restart on resize
-				var resizeObserver = new ResizeObserver(function(){
-					// remove previous generated styles to avoid duplicates
-					var prev = document.querySelectorAll('.marquee-style');
-					prev.forEach(function(n){ n.parentNode && n.parentNode.removeChild(n); });
-					// also unwrap if wrapper exists (simple page reload semantics)
-					// We'll just recompute by reloading the page of children
-					computeAndStart();
-				});
-				resizeObserver.observe(el);
-
-				// initial start (slight delay to allow fonts/images)
-				setTimeout(computeAndStart, 50);
-			}
-
-			document.addEventListener('DOMContentLoaded', function(){
-				var el = document.getElementById('auto-marquee');
-				if(el) setupMarquee(el);
-			});
-		})();
-		</script>
 
 		<script>
 		// Ensure logo carousels initialize with rtl + autoplay as a safety net
